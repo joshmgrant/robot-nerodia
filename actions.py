@@ -5,9 +5,6 @@ BASE_TEST_URL = 'http://localhost:9292/'
 
 class LoginPage():
 
-    def __init__(self):
-        self.browser = object()
-
     @keyword
     def open_browser(self, name='firefox'):
         self.browser = Browser(browser=name)

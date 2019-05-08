@@ -1,12 +1,12 @@
 *** Settings ***
-Resource  actions
+Library  actions.py
 Library  checks.py
 
 *** Test Cases ***
 
 Valid Login with Standard User
 
-        Open Browser   chrome
+        Open Browser
 	Go To Login 
 	Login As    tomsmith    SuperSecretPassword!
 	Should Be Displayed    .success
