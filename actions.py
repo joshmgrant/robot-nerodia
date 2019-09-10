@@ -1,7 +1,7 @@
 from nerodia.browser import Browser
 from robot.api.deco import keyword
 
-BASE_TEST_URL = 'http:/localhost:9292/'
+BASE_TEST_URL = 'http://the-internet.herokuapp.com/'
 
 class Login():
 
@@ -9,7 +9,7 @@ class Login():
         self.browser = {}
 
     @keyword
-    def open_browser(self, name='firefox'):
+    def open_browser(self, name='chrome'):
         self.browser = Browser(browser=name)
 
     @keyword
