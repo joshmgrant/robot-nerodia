@@ -1,5 +1,8 @@
+from selenium import webdriver
+from selenium.webdriver.remote.remote_connection import RemoteConnection
 from nerodia.browser import Browser
 from robot.api.deco import keyword
+from os import environ
 
 BASE_TEST_URL = 'http://the-internet.herokuapp.com/'
 
@@ -11,6 +14,31 @@ class Login():
     @keyword
     def open_browser(self, name='chrome'):
         self.browser = Browser(browser=name)
+
+    @keyword
+    def open_on_sauce(self):
+        caps = {
+            'platformName': 'Windows 10',
+            'plaformVersion': 'latest',
+            'browserName': 'chrome'
+        }
+
+        username = environ.get('SAUCE_USERNAME', None)
+        access_key = environ.get('SAUCE_ACCESS_KEY', None)
+
+        selenium_endpoint = "http://ondemand.saucelabs.com/wd/hub"
+
+        caps['username'] = username
+        caps['accesskey'] = access_key
+        caps['name'] = 'Robot Nerodia - Login'
+
+        executor = RemoteConnection(selenium_endpoint, resolve_ip=False)
+        remote = webdriver.Remote(
+            command_executor=executor,
+            desired_capabilities=caps
+        )
+
+        self.browser = Browser(browser=remote, desired_capabilities=caps)
 
     @keyword
     def go_to_login(self):
